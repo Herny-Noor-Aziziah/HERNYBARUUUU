@@ -1,258 +1,310 @@
-Berikut adalah kode HTML yang telah disatukan. Tautan dari Google Form dan Looker Studio (Sajian Data) milik Anda sudah diintegrasikan ke dalam layout dasbor admin POKLAHSAR, baik pada bagian tombol akses cepat maupun pada visualisasi *live iframe* di bawahnya.
-
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notulensi & Integrasi Data - POKLAHSAR</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rencana Usaha Bersama (RUB) - POKLAHSAR</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-        body {
-            background: #f4f7fc;
-            display: flex;
-        }
+body {
+    background: #f4f7fc;
+    display: flex;
+}
 
-        /* ================= SIDEBAR ================= */
-        .sidebar {
-            width: 280px;
-            height: 100vh;
-            background: #2952cc;
-            position: fixed;
-            overflow-y: auto;
-            color: white;
-        }
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: #2952cc;
+    position: fixed;
+    overflow-y: auto;
+    color: white;
+}
 
-        .logo {
-            padding: 25px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,.2);
-        }
+.logo {
+    padding: 25px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+}
 
-        .logo h2 { font-size: 24px; margin-bottom: 5px; }
-        .logo p { font-size: 13px; opacity: .8; }
+.logo h2 { font-size: 24px; margin-bottom: 5px; }
+.logo p { font-size: 13px; opacity: .8; }
 
-        .menu { padding: 15px; }
-        .menu ul { list-style: none; }
-        .menu ul li { margin-bottom: 8px; }
-        .menu ul li a {
-            display: block;
-            padding: 12px 15px;
-            text-decoration: none;
-            color: white;
-            border-radius: 10px;
-            transition: .3s;
-        }
-        .menu ul li a:hover, .menu ul li a.active {
-            background: rgba(255,255,255,.2);
-        }
+.menu { padding: 15px; }
+.menu ul { list-style: none; }
+.menu ul li { margin-bottom: 8px; }
+.menu ul li a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    transition: .3s;
+    cursor: pointer;
+}
+.menu ul li a:hover, .menu ul li a.active {
+    background: rgba(255,255,255,.2);
+}
 
-        /* ================= MAIN ================= */
-        .main {
-            margin-left: 280px;
-            width: calc(100% - 280px);
-        }
+/* ================= MAIN ================= */
+.main {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+}
 
-        /* ================= TOPBAR ================= */
-        .topbar {
-            background: white;
-            padding: 18px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,.08);
-        }
-        .topbar h2 { color: #2952cc; font-size: 20px; }
+/* ================= TOPBAR ================= */
+.topbar {
+    background: white;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.topbar h2 { color: #2952cc; font-size: 20px; }
 
-        /* ================= CONTENT ================= */
-        .content { padding: 25px; }
+.back-btn {
+    background: #5a7ee0;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+.back-btn:hover {
+    background: #4a6ecb;
+}
 
-        .section-title {
-            color: #2952cc;
-            margin-bottom: 20px;
-            font-size: 22px;
-            border-bottom: 2px solid #2952cc;
-            padding-bottom: 10px;
-            display: inline-block;
-        }
+/* ================= CONTENT ================= */
+.content { padding: 25px; }
 
-        /* ================= CARDS / LINKS ================= */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+.hero-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    margin-bottom: 30px;
+    border-left: 5px solid #2952cc;
+}
+.hero-section h3 { color: #2952cc; margin-bottom: 10px; font-size: 20px;}
+.hero-section p { color: #555; line-height: 1.7; font-size: 15px; text-align: justify; }
 
-        .data-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.05);
-            border-top: 4px solid #2952cc;
-        }
+.section-title {
+    color: #2952cc;
+    margin-bottom: 20px;
+    font-size: 22px;
+    border-bottom: 2px solid #2952cc;
+    padding-bottom: 10px;
+    display: inline-block;
+}
 
-        .data-card h3 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+/* ================= CARDS / LINKS ================= */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
 
-        .data-card h3 i {
-            color: #2952cc;
-            font-size: 24px;
-        }
+.data-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    border-top: 4px solid #2952cc;
+    transition: 0.3s;
+}
+.data-card:hover {
+    transform: translateY(-3px);
+}
 
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.data-card h3 {
+    margin-bottom: 12px;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            background: #f0f4ff;
-            color: #2952cc;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.3s;
-            border: 1px solid #d6e0ff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.data-card h3 i {
+    color: #2952cc;
+    font-size: 22px;
+}
 
-        .btn:hover {
-            background: #2952cc;
-            color: white;
-        }
+.data-card p {
+    font-size: 14px; 
+    color: #666; 
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
 
-        .btn-looker { background: #fef7e0; color: #b06000; border-color: #feefc3; }
-        .btn-looker:hover { background: #b06000; color: white; }
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        /* ================= LIVE DASHBOARD INTEGRATION ================= */
-        .dashboard-container {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.05);
-            margin-bottom: 30px;
-        }
+.btn {
+    display: inline-flex;
+    padding: 10px 15px;
+    background: #f0f4ff;
+    color: #2952cc;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+    border: 1px solid #d6e0ff;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
 
-        .tab-menu {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-        }
+.btn:hover {
+    background: #2952cc;
+    color: white;
+}
 
-        .tab-btn {
-            padding: 10px 20px;
-            border: none;
-            background: #f0f4ff;
-            color: #2952cc;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.btn-excel { background: #e6f4ea; color: #137333; border-color: #ceead6; }
+.btn-excel:hover { background: #137333; color: white; }
 
-        .tab-btn.active, .tab-btn:hover {
-            background: #2952cc;
-            color: white;
-        }
+.btn-looker { background: #fef7e0; color: #b06000; border-color: #feefc3; }
+.btn-looker:hover { background: #b06000; color: white; }
 
-        .tab-btn-looker {
-            background: #fef7e0;
-            color: #b06000;
-        }
-        .tab-btn-looker.active, .tab-btn-looker:hover {
-            background: #b06000;
-            color: white;
-        }
+/* ================= LIVE DASHBOARD INTEGRATION ================= */
+.dashboard-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    margin-bottom: 30px;
+}
 
-        .iframe-wrapper {
-            position: relative;
-            width: 100%;
-            height: 600px;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+.tab-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
 
-        .iframe-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: #f0f4ff;
+    color: #2952cc;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-        /* ================= TABLE NOTULENSI ================= */
-        .table-container {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.05);
-        }
+.tab-btn.active, .tab-btn:hover {
+    background: #2952cc;
+    color: white;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
+.tab-btn-excel {
+    background: #e6f4ea;
+    color: #137333;
+}
+.tab-btn-excel.active, .tab-btn-excel:hover {
+    background: #137333;
+    color: white;
+}
 
-        table th, table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
 
-        table th {
-            background: #f8f9fa;
-            color: #333;
-            font-weight: 600;
-        }
+.iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 
-        table tbody tr:hover {
-            background: #f4f7fc;
-        }
+/* ================= TABLE NOTULENSI / ARSIP ================= */
+.table-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
 
-        .badge {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            background: #e6f4ea;
-            color: #137333;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
 
-        /* ================= RESPONSIVE ================= */
-        @media(max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .main { margin-left: 0; width: 100%; }
-            body { flex-direction: column; }
-            .iframe-wrapper { height: 450px; }
-        }
-    </style>
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+}
+
+table tbody tr:hover {
+    background: #f4f7fc;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #e6f4ea;
+    color: #137333;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 768px) {
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .main { margin-left: 0; width: 100%; }
+    body { flex-direction: column; }
+    .iframe-wrapper { height: 450px; }
+}
+</style>
 </head>
 
 <body>
@@ -264,39 +316,62 @@ Berikut adalah kode HTML yang telah disatukan. Tautan dari Google Form dan Looke
     </div>
     <div class="menu">
         <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Kembali ke Dashboard</a></li>
-            <li><a href="#" class="active"><i class="fas fa-file-signature"></i> Notulensi & Data Rapat</a></li>
+            <li><a onclick="kembaliKeAsal()"><i class="fas fa-home"></i> Kembali ke Beranda</a></li>
+            <li><a href="#" class="active"><i class="fas fa-briefcase"></i> Rencana Usaha Bersama</a></li>
         </ul>
     </div>
 </div>
 
 <div class="main">
     <div class="topbar">
-        <h2>Notulensi & Integrasi Data POKLAHSAR</h2>
-        <div>
-            <i class="fas fa-user-circle"></i> Administrator
-        </div>
+        <h2>Rencana Usaha Bersama (RUB)</h2>
+        <button onclick="kembaliKeAsal()" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </button>
     </div>
 
     <div class="content">
+        
+        <div class="hero-section">
+            <h3>Rencana Usaha Bersama Kelompok</h3>
+            <p>
+                Halaman ini digunakan untuk mengelola kegiatan Rencana Usaha Bersama (RUB), 
+                mulai dari pendaftaran anggota usaha, survei tingkat kepuasan, 
+                monitoring hasil kegiatan melalui Google Spreadsheet, 
+                visualisasi data menggunakan Looker Studio, 
+                hingga analisis data yang dapat diunduh dalam format Microsoft Excel.
+            </p>
+        </div>
         
         <h2 class="section-title"><i class="fas fa-link"></i> Integrasi Data Formulir & Laporan</h2>
         
         <div class="grid-container">
             
             <div class="data-card">
-                <h3><i class="fab fa-google"></i> Google Form</h3>
-                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Akses langsung ke kuesioner, formulir input data kegiatan, atau pendaftaran POKLAHSAR.</p>
+                <h3><i class="fas fa-file-signature"></i> Data Pendaftaran</h3>
+                <p>Formulir pendaftaran anggota atau peserta kegiatan usaha bersama beserta rekap hasil rekapitulasi data.</p>
                 <div class="btn-group">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSccB5bxOpZpNK5IqjGLdoTvbIljP7Ic_aXoF2u8L__E1maRYA/viewform?usp=publish-editor" target="_blank" class="btn"><i class="fas fa-external-link-alt"></i> Buka Google Form</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBlDASR4Hx2Af7iI6gbOK1oucGMKhWaTMCT78VXl8-hp4fww/viewform?usp=header" target="_blank" class="btn"><i class="fab fa-google"></i> Buka Form Pendaftaran</a>
+                    <a href="https://docs.google.com/spreadsheets/d/18YCnZiPHENjpNQ3xfJeO9GJBFX0KwlwSPXFru06EHGM/edit?usp=sharing" target="_blank" class="btn btn-excel"><i class="fas fa-table"></i> Lihat Hasil Spreadsheet</a>
                 </div>
             </div>
 
             <div class="data-card">
-                <h3><i class="fas fa-chart-pie"></i> Sajian Data Analitik</h3>
-                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Buka visualisasi data penuh dan laporan interaktif hasil survei melalui platform Looker Studio.</p>
+                <h3><i class="fas fa-star"></i> Survei Kepuasan</h3>
+                <p>Formulir penilaian tingkat kepuasan anggota terhadap kegiatan kelompok beserta rekap hasil data otomatis.</p>
                 <div class="btn-group">
-                    <a href="https://datastudio.google.com/reporting/0e30fb64-b735-4b8a-b4c9-fb108de0b403" target="_blank" class="btn btn-looker"><i class="fas fa-chart-line"></i> Buka Sajian Data (Looker Studio)</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdB-J9fVKTgkqzGrwAzztotSV2MJbKHHbmYR54mPh3cM4w/viewform?usp=header" target="_blank" class="btn"><i class="fab fa-google"></i> Isi Survey Kepuasan</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1EP1MjYuJBQZgA1tpaR1QwM6tNk1NID2kG2pQ1YEbJmU/edit?usp=sharing" target="_blank" class="btn btn-excel"><i class="fas fa-table"></i> Lihat Hasil Survey</a>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <h3><i class="fas fa-chart-pie"></i> Visualisasi & Analisis</h3>
+                <p>Akses dashboard analitik dari Looker Studio dan file pengolahan data analisis berbasis Microsoft Excel.</p>
+                <div class="btn-group">
+                    <a href="https://datastudio.google.com/embed/reporting/c4254422-2f42-48a3-bd88-c809ef236733/page/page_12345" target="_blank" class="btn btn-looker"><i class="fas fa-chart-line"></i> Buka Dashboard Looker 1</a>
+                    <a href="https://datastudio.google.com/embed/reporting/e1cd4628-a4b5-4b14-90fb-8956dded3226/page/page_12345" target="_blank" class="btn btn-looker"><i class="fas fa-chart-line"></i> Buka Dashboard Looker 2</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1guba_mSOUK53wBRIijT11_MNoI8ZbREl/edit?usp=sharing&ouid=101206049725368087904&rtpof=true&sd=true" download class="btn btn-excel"><i class="fas fa-file-excel"></i> Unduh Analisis Data Excel</a>
                 </div>
             </div>
 
@@ -305,37 +380,54 @@ Berikut adalah kode HTML yang telah disatukan. Tautan dari Google Form dan Looke
         <h2 class="section-title"><i class="fas fa-chart-bar"></i> Visualisasi Dashboard Interaktif</h2>
         <div class="dashboard-container">
             <div class="tab-menu">
-                <button class="tab-btn tab-btn-looker active" onclick="switchDashboard(event, 'dashboard-sajian')">
-                    <i class="fas fa-poll"></i> Live Sajian Data
+                <button class="tab-btn active" onclick="switchDashboard(event, 'dashboard-looker1')">
+                    <i class="fas fa-chart-pie"></i> Dashboard Looker 1
                 </button>
-                <button class="tab-btn" onclick="switchDashboard(event, 'live-form')">
-                    <i class="fab fa-wpforms"></i> Lihat Formulir
+                <button class="tab-btn" onclick="switchDashboard(event, 'dashboard-looker2')">
+                    <i class="fas fa-chart-line"></i> Dashboard Looker 2
+                </button>
+                <button class="tab-btn tab-btn-excel" onclick="switchDashboard(event, 'excel-pendaftaran')">
+                    <i class="fas fa-table"></i> Spreadsheet Pendaftaran
+                </button>
+                <button class="tab-btn tab-btn-excel" onclick="switchDashboard(event, 'excel-kepuasan')">
+                    <i class="fas fa-table"></i> Spreadsheet Kepuasan
                 </button>
             </div>
 
-            <div id="dashboard-sajian" class="tab-content">
+            <div id="dashboard-looker1" class="tab-content">
                 <div class="iframe-wrapper">
-                    <iframe src="https://datastudio.google.com/embed/reporting/0e30fb64-b735-4b8a-b4c9-fb108de0b403" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                    <iframe src="https://datastudio.google.com/embed/reporting/c4254422-2f42-48a3-bd88-c809ef236733/page/page_12345" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
                 </div>
             </div>
 
-            <div id="live-form" class="tab-content" style="display: none;">
+            <div id="dashboard-looker2" class="tab-content" style="display: none;">
                 <div class="iframe-wrapper">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSccB5bxOpZpNK5IqjGLdoTvbIljP7Ic_aXoF2u8L__E1maRYA/viewform?embedded=true" frameborder="0" style="border:0" allowfullscreen>Memuat…</iframe>
+                    <iframe src="https://datastudio.google.com/embed/reporting/e1cd4628-a4b5-4b14-90fb-8956dded3226/page/page_12345" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                </div>
+            </div>
+
+            <div id="excel-pendaftaran" class="tab-content" style="display: none;">
+                <div class="iframe-wrapper">
+                    <iframe src="https://docs.google.com/spreadsheets/d/18YCnZiPHENjpNQ3xfJeO9GJBFX0KwlwSPXFru06EHGM/edit?usp=sharing" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div id="excel-kepuasan" class="tab-content" style="display: none;">
+                <div class="iframe-wrapper">
+                    <iframe src="https://docs.google.com/spreadsheets/d/1EP1MjYuJBQZgA1tpaR1QwM6tNk1NID2kG2pQ1YEbJmU/edit?usp=sharing" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
 
-        <h2 class="section-title"><i class="fas fa-book-open"></i> Arsip Notulensi Rapat</h2>
-
+        <h2 class="section-title"><i class="fas fa-book-open"></i> Arsip Kegiatan & Progress RUB</h2>
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Tanggal Rapat</th>
-                        <th>Agenda / Pembahasan</th>
-                        <th>Pimpinan Rapat</th>
+                        <th>Tanggal Monitoring</th>
+                        <th>Agenda / Unit Kegiatan Usaha</th>
+                        <th>Penanggung Jawab</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -344,7 +436,7 @@ Berikut adalah kode HTML yang telah disatukan. Tautan dari Google Form dan Looke
                     <tr>
                         <td>1</td>
                         <td>10 Juni 2026</td>
-                        <td>Pembentukan Panitia & Sosialisasi Pendaftaran</td>
+                        <td>Sosialisasi & Pembukaan Pendaftaran Anggota RUB</td>
                         <td>Ketua POKLAHSAR</td>
                         <td><span class="badge">Selesai</span></td>
                         <td><a href="#" style="color: #2952cc; text-decoration: none;"><i class="fas fa-eye"></i> Detail</a></td>
@@ -352,7 +444,7 @@ Berikut adalah kode HTML yang telah disatukan. Tautan dari Google Form dan Looke
                     <tr>
                         <td>2</td>
                         <td>15 Juni 2026</td>
-                        <td>Evaluasi Hasil Survei Kepuasan Bulan Mei</td>
+                        <td>Evaluasi Pengisian Survei Kepuasan Anggota</td>
                         <td>Sekretaris Kelompok</td>
                         <td><span class="badge">Selesai</span></td>
                         <td><a href="#" style="color: #2952cc; text-decoration: none;"><i class="fas fa-eye"></i> Detail</a></td>
@@ -360,13 +452,20 @@ Berikut adalah kode HTML yang telah disatukan. Tautan dari Google Form dan Looke
                     <tr>
                         <td>3</td>
                         <td>20 Juni 2026</td>
-                        <td>Analisis Data Produksi (Review Hasil Form & Sajian Data)</td>
+                        <td> Sinkronisasi Model Analisis Data File Excel </td>
                         <td>Divisi Pemasaran</td>
                         <td><span class="badge" style="background:#fff0f1; color:#d93025;">Pending</span></td>
                         <td><a href="#" style="color: #2952cc; text-decoration: none;"><i class="fas fa-eye"></i> Detail</a></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Sistem Informasi POKLAHSAR | Rencana Usaha Bersama (RUB)</p>
+            <button onclick="kembaliKeAsal()" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
         </div>
 
     </div>
@@ -387,9 +486,18 @@ function switchDashboard(evt, dashboardId) {
     document.getElementById(dashboardId).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
+
+function kembaliKeAsal() {
+    if (document.referrer) {
+        window.location.href = document.referrer;
+    } else if (history.length > 1) {
+        history.back();
+    } else {
+        alert("Tidak ada halaman sebelumnya untuk kembali.");
+        window.close();
+    }
+}
 </script>
 
 </body>
 </html>
-
-```
